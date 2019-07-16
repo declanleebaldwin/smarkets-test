@@ -1,5 +1,7 @@
 <template>
- <li>{{ event.name }}</li>
+  <li class="list-item">
+      {{ event.name }}
+  </li>
 </template>
 
 <script>

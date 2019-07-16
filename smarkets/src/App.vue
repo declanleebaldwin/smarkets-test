@@ -1,17 +1,11 @@
 <template>
   <div id="app">
-    <section class="hero is-primary is-bold">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">Smarkets</h1>
-          <h2 class="subtitle">Upcoming Events</h2>
-        </div>
-      </div>
-    </section>
-    <section>
+    <hero-banner></hero-banner>
+    <section id="dropdown-section">
       <div class="container">
         <div class="select">
           <select v-model="selectedEventType">
+            <option value="" disabled selected hidden>Please Choose An Event Type</option>
             <option
               v-for="(eventType, index) in eventTypesArray"
               v-bind:key="index"
@@ -21,9 +15,9 @@
         </div>
       </div>
     </section>
-    <section>
+    <section v-show="events.length > 0">
       <div class="container">
-        <ul>
+        <ul class="list is-hoverable">
          <event-item v-for="event in events" v-bind:key="event.id" :event="event"></event-item>
         </ul>
       </div>
@@ -32,12 +26,14 @@
 </template>
 
 <script>
+import HeroBanner from "./components/HeroBanner.vue";
 import EventItem from "./components/EventItem.vue";
 import axios from "axios";
 
 export default {
   name: "app",
   components: {
+    HeroBanner,
     EventItem
   },
   data: function() {
@@ -105,9 +101,6 @@ export default {
           alert("an error as occurred");
           console.log(error);
         })
-        .then(function() {
-          // always executed
-        });
     }
   }
 };
@@ -116,5 +109,10 @@ export default {
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
+
+#dropdown-section {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 </style>
